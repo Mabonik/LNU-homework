@@ -1,0 +1,197 @@
+\documentclass[ a4papper]{article}
+\usepackage[margin=0.75in]{geometry}          
+\usepackage{amsthm, amsmath, amssymb}
+\usepackage{setspace}\onehalfspacing
+\usepackage[loose,nice]{units}  
+\usepackage[utf8]{inputenc}
+ \usepackage[bbgreekl]{mathbbol}
+ \usepackage{mathtools}
+ \newtheorem{theorem}{Theorem}
+ \newtheorem*{mydef}{Example}
+
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}                
+\usepackage[utf8]{inputenc}             
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[english]{babel}
+
+\usepackage{biblatex}
+\addbibresource{sample.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+ 
+ \fancyhead{}
+ \fancyfoot{}
+\fancyfoot[RE,LO]{XXXIII International Conference PDMU, Czech Republic, Prague, August 27-31, 2018}
+\fancyfoot[LE,RO]{\thepage}
+ 
+\begin{document}
+
+\begin{center}
+ \section* {Nonlinear Least Square Problems with Operator Decomposition}
+\end{center}
+
+ \begin{quote}
+{\small \textbf{Keywords: } least squares problem, decomposition of operator, Gauss-Newton method, Lipschitz conditions, divided difference}
+ \end{quote}
+ 
+\section{Introduction}
+   
+\setlength{\parindent}{4em} 
+ Sometimes the nonlinear function consist of a differentiable and a nondiffirentiable parts. Despite the applicability of iterative-difference methods to such class of problems, it is better to take into account the specificity of given function, which enable to achieve a greater convergence order. One of possible options is using in method the only derivative from differentiable part, and omit the nondiffirentiable part, because full Jacobian does not exist. However, as practice shows, such methods converges much slower. Methods, which are using derivate of differentiable part of operator and divided differences of nondiffirentiable part of operator demonstrate much better results. This approach well recommends itself in solvin nonlinear problems what you can see in I.K. Argyros (2008); E. Catinas (1994) ; ? .  \par
+ Let us consider the nonlinear least squares problem 
+ 
+ \begin{equation} \label{myformula1}
+\min_{x \in \mathbb{R}^p}  \frac{1}{2}\left ( F\left ( x \right ) +G \left ( x \right ) \right )^T \left ( F\left ( x \right )+G\left ( x \right ) \right ),
+ \end{equation}                  
+ 
+ where the residual function $F + G$ is defined on $\mathbb{R}^p$ with its values on $\mathbb{R}^m$  and it is nonlinear by  $x$;  $F$ is a continuously differentiable function;  $G$  is a continuous function, differentiability of which, in general, is not required. If  $m = p$, we get system  of nonlinear equations (E. Catinas, 1994; ?).
+  \par
+ For finding the solution of problem (\ref{myformula1}), we propose method based on Gauss-Newton method and Potra method (?)
+ 
+ 
+  \begin{equation} \label{myformula2}
+  \begin{aligned}
+ x_{k+1}= x_{k} - \left ( A_{k}^{T} A_{k} \right )^{-1} A_{k}^{T}\left ( F\left ( x_{k} \right )+G\left ( x_{k}   \right ) \right ) ,  k = 0,1,2, \dots \\                            
+ A_{k} = {F}'\left (x_{k} \right ) + G\left (x_{k} ,x_{k-1}  \right ) + G \left (x_{k-2} ,x_{k} \right ) - G \left ( x_{k-2}, x_{k-1} \right )
+ \end{aligned}
+  \end{equation}    
+ 
+ Here ${F}'\left (x_{k} \right )$  is Fr\'{e}chet derivative  $F \left ( x \right )$ in point $x_{k},  G\left (x_{k} ,x_{k-1}  \right ) , G \left (x_{k-2} ,x_{k} \right ) ,  G \left ( x_{k-2}, x_{k-1} \right )$ are divided differences of first order of function $G \left ( x \right )$ at appropriate points (?); $x_{0}, x_{-1}, x_{-2}$ are given initial approximations. In case when $m = n $, this method reduces to the Newton-Potra methods (?). \par
+ In this work, we study the local convergence of the proposed method and show efficiency of this method in comparing with other methods for solving such class of problems.
+ 
+ \section{Convergence Analysis}
+ Let us denote $\Omega \left ( x^{*},r  \right ) = \left \{  x \in D \subseteq \mathbb{R}^p : \| x - x^{*} \| < r \right \}$ as an open ball with the radius r $\left (  r > 0  \right )$ at $x^{*}$, $D$ is an open convex subset of $\mathbb{R}^p$ . \par
+ Sufficient conditions of the local convergence of the iterative process  (\ref{myformula2}) are given in the following theorem.
+ 
+ 
+ \begin{theorem}
+Let $F + G : \mathbb{R}^p \longrightarrow \mathbb{R}^m , m \geq p $, be continuous operator, where $F$ is a Fr\'{e}chet differentiable operator and $G$ is a continuius operator on a subset $ D \subseteq \mathbb{R}^n$. Assume that the problem  (\ref{myformula1}) has a solution $x^{*} \in D$ an exist an inverse operator $\left ( A^{_{*}^{T}} A_{*} \right )^{-1}$, where $A_{*} = {F}'\left (x^{*} \right ) + G\left (x^{*}, x^{*} \right )$, and $ \|  \left ( A^{_{*}^{T}} A_{*} \right )^{-1}  \|  \leq B$. Suppose that Fr\'{e}chet  derivate ${F}'\left (x \right )$ satisfies the Lipschitz conditions on $D$ 
+
+  \begin{equation} \label{myformula3}
+   \| {F}'\left (x\right ) + {F}'\left (y\right )\|  \leq L \| x - y \|
+   \end{equation}    
+   
+   and the function $G$ has the first and second order divided differences $G  \left (\cdot , \cdot  \right)$ and  $G  \left (\cdot , \cdot  , \cdot   \right)$ and 
+   
+   \begin{equation} \label{myformula4}
+   \| G \left (x,y\right ) - G\left (u,v\right )\|  \leq M \left( \| x - u \| + \| y - v \| \right),
+   \end{equation}    
+   
+   \begin{equation} \label{myformula5}
+   \| G \left (u,x,y\right ) - G\left (v,x,y\right )\|  \leq N \left( \| u - v \|  \right)
+   \end{equation}   
+
+for all $x,y,u,v \in D; L, N and M$ are non-negative numbers. \par
+Furthermore, 
+   \begin{equation} \label{myformula6}
+     \begin{aligned}
+ \| F \left (x^{*}\right ) + G\left (x^{*}\right )\|  \leq \eta   ,  \|{F}'\left ( x^{*} \right ) + G \left ( x^{*}, x^{*} \right ) \| \leq \alpha \\
+ B\left ( L+2M \right )\eta \leq 1
+  \end{aligned}
+  \end{equation}   
+   and $\Omega = \Omega \left ( x^{*} , r_{*}  \right )\subseteq D$ ,  where the radius $r_{*} > 0$ is a unique root of the equation
+   
+   
+   \begin{equation} \label{myformula7}
+     \begin{aligned}
+  q\left ( r \right ) = B \left[ \left (\alpha + \left ( L + 2M \right )r + 2Nr^{2} \right )    
+\left ( \left ( \frac{1}{2}L+2M \right )r+4Nr^{2} \right ) + \left ( L + 2M+2Nr \right )\eta  \right ] + \\
+B\left [ 2\alpha + \left ( L +2M \right )r + 2Nr^{2} \right ]\left ( \left ( L + 2M \right )r + 2Nr^{2} \right ) - 1 = 0
+  \end{aligned}
+     \end{equation}   
+     
+     Then, for all $x_{0}, x_{-1}, x_{-2} \in \Omega$ the sequence ${x_{k}}$, which are generated by the method  (\ref{myformula2}), is well defined, remain in $\Omega$ for all $k\geq 0$, and converges to $x^{*}$. Moreover, the following estimates hold for all $k\geq 0$
+     
+     
+    \begin{equation} \label{myformula8}
+\begin{multlined}
+     \left \| x_{k+1}-x^{*} \right \|\leq g\left ( r_{*} \right )\left [ \alpha + \left ( L+2M \right ) \left \| x_{k}-x^{*}  \left \| + 2N \right \|x_{k-2}-x^{*} \right \|\left \| x_{k-1}-x^{*} \right \| \right ] \cdot  \\
+     \cdot   \left [ \left ( \frac{1}{2}L+M \right )\left \| x_{k}-x^{*} \right \| + 4N\left \| x_{k-1}-x^{*} \right \|\left \| x_{k-2}-x^{*} \right \| \right ]\left \| x_{k} - x^{*} \right \| + \\
+    +  \eta \left [ \left ( L + 2M \right )\left \| x_{k} - x^{*} \right \| + 2N\left \| x_{k-2}-x^{*} \right \| \left \| x_{k-1} - x^{*} \right \| \right ] = C_{1}\left \| x_{k} - x^{*} \right \| + C_{2}\left \| x_{k} - x^{*} \right \|\left \| x_{k-1}-x^{*} \right \| + \\
+     + C_{3}\left \| x_{k-1} - x^{*} \right \|\left \| x_{k-2}-x^{*} \right \|+ C_{4}\left \| x_{k} - x^{*} \right \|^{2} +  C_{5}\left \| x_{k} -x^{*} \right \|\left \| x_{k-1}-x^{*} \right \|\left \| x_{k-2}-x^{*} \right \|+ \\
+   +  C_{6}\left \| x_{k}-x^{*} \right \|^{3}+C_{7}\left \| x_{k}-x^{*} \right \|^{2}\left \| x_{k-1}-x^{*} \right \|\left \| x_{k-2}-x^{*} \right \|+ C_{8}\left \| x_{k}-x^{*} \right \|^{3}\left \| x_{k-1}-x^{*} \right \|+ \\
+    +  C_{9}\left \| x_{k}-x^{*} \right \|^{2}\left \| x_{k-1}-x^{*} \right \|^{2}\left \| x_{k-2}-x^{*} \right \| \\
+     +C_{10}\left \| x_{k}-x^{*} \right \|^{2}\left \| x_{k-1}-x^{*} \right \|\left \| x_{k-2}-x^{*} \right \|+ C_{11}\left \| x_{k}-x^{*} \right \|\left \| x_{k-1}-x^{*} \right \|^{2}\left \| x_{k-2}-x^{*} \right \|^{2}
+ \end{multlined}
+   \end{equation}   
+     
+     where
+      \begin{equation} \label{myformula9}
+\begin{multlined}
+    g\left ( r \right ) = B \left [ 1-B\left [ 2\alpha +\left ( L+2M \right )r + 2Nr^{2} \right ]\cdot \left [ \left ( L+2M \right )r +2Nr^{2} \right ] \right ]^{-1};  C_{1} 
+    =g\left ( r_{*} \right )\eta \left ( L+2M \right ); \\
+    C_{2}=C_{3}=g\left ( r_{*}  \right )\eta N; C_{4} = g\left ( r_{*} \right )\left ( \frac{\alpha L}{2} + \alpha M \right );  C_{5}=g\left ( r_{*} \right )\alpha 4N;  C_{6}=g\left ( r_{*} \right )\frac{1}{2} \left ( L+2M \right )^{2} ; \\
+    C_{7}=g\left ( r_{*} \right )4N\left ( L+2M \right );   C_{8}=C_{10}=g\left ( r_{*} \right )\left ( \frac{NL}{2} +NM \right ); C_{9} = C_{11} = g\left ( r_{*} \right )4N^{2}
+ \end{multlined}
+   \end{equation}   
+     
+\end{theorem}
+
+
+\section{Numerical experiments}
+
+
+\begin{mydef}
+\begin{center}
+ $3x^{2}y+y^{2}-1+\| x-1\| =0, $ \par
+ $x^{4}+xy^{3}+ \|y\|=0, $ \par
+ 	$\|x^{2}-y \| =0, $ \par
+	$ \left ( x^{*}, y^{*} \right ) \approx   \left ( 0.74862800, 0.43039151 \right ) , f  \left ( x^{*} \right ) \approx 4.0469349  \cdot 10^{-2} $ \par
+Numerical solution of the problem we get with the accuracy $\varepsilon = 10^{-8}$: \par
+$\|x_{k+1}-x_{k}\| \leq \varepsilon$ \par
+\end{center}
+The additional initial points we calculated by \par
+\begin{center}
+$\left ( x_{-1},y_{-1} \right ) = \left ( x_{0} - 10^{-4}, y_{0}  - 10^{-4} \right ),$ \par
+$\left ( x_{-2},y_{-2} \right ) = \left ( x_{0} - 2  \cdot  10^{-4}, y_{0}  - 2  \cdot  10^{-4} \right )$
+\end{center}
+\end{mydef}
+
+
+\begin{table}[]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+\multirow{2}{*}{Example} & \multirow{2}{*}{$(x_{0};y_{0})$} & \multicolumn{2}{l}{Method} \\
+\cline{3-4}
+                         &                        & (1)            & (2)           \\
+\hline
+\multirow{3}{*}{1}       & (1, 0.5)               & 5            & 5           \\
+\cline{2-4}
+                         & (5, 2.5)               & 14           & 11          \\
+                         \cline{2-4}
+                         & (10, 5)                & 19           & 14          \\
+\hline
+\multirow{3}{*}{2}       & (0.6, 0.4)             & 14           & 14          \\
+\cline{2-4}
+                         & (3, 2)                 & 21           & 19          \\
+                         \cline{2-4}
+                         & (6, 4)                 & 25           & 21 \\
+ \hline        
+\end{tabular}
+\caption{\label{tab:table-name}Number of iterations for solving test problems.}
+\end{center}
+\end{table} 
+
+From obtained results, we can see that the combined Gauss-Newtone-Potra method (\ref{myformula2}) is more efficient than basic method.
+ 
+\begin{thebibliography}{9} \bibitem{lamport94} I.K. Argyros, 2008. Convergence and Applications of Newton-type Iterations. Springer-Verlag: New York, 506 p.\emph{ a document preparation system}. 
+ \bibitem{lamport94} I.K. Argyros, H. Ren, 2011. A derivative free iterative method method for solving least squares problems. \emph{ Numerical Algorithms}, 4(58), 555-571. 
+  \bibitem{lamport94} E. Catinas, 1994.On some iterative methods for solving nonlinear equations.  \emph{ Revue d`Analyse Numerique et de Theorie de l`Approximation}, 1(23), 47-53. 
+   \bibitem{lamport94} J.Chen, W.Li, 2005. Convergence of Gauss-Newton method`s and uniqueness of the solution.  \emph{ Applied Mathematics and Computation}, 170, 686-705. 
+ \end{thebibliography}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+\end{document}
